@@ -1,0 +1,3 @@
+
+async def insert_product():
+    ...
