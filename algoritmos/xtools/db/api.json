@@ -1,0 +1,2 @@
+{"preco_gasolina": {"post":"http://localhost:8083/preco_gasolina/post", "get": "http://localhost:8083/preco_gasolina/get"}} 
+{"auth": {"register":"http://localhost:8081/auth/register", "login":"http://localhost:8081/auth/login"}}

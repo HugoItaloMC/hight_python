@@ -2,10 +2,10 @@ from datetime import datetime
 
 from sqlalchemy import Integer, String, BigInteger, DateTime
 from sqlalchemy.orm import Mapped, mapped_column
-from orm.utils.model_base import db
+from app.api.utils.base_model import Base
 
 
-class Product(db.Model):
+class Product(Base):
     __tablename__: str = 'product'
 
     id: Mapped[int] = mapped_column('id', BigInteger, autoincrement=True, nullable=False, primary_key=True)
