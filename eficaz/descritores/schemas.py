@@ -1,14 +1,14 @@
 from wrapper import Descritor
-from __init__ import RepoUser
+from __init__ import RepoUserPost
 
-class SchemaUser(RepoUser):
-
-    def __init__(self, *args):
-        self.args = super().__init__(*args)
-        self.post = Descritor()
+class SchemaUserPost(RepoUserPost):
     
-    def __iter__(self):
-        self.post = self.args
+    def __init__(self, *args):
+        super().__init__(*args)
+    
+    
+    def __call__(self, method: str):
+        super(__class__, self).__call__(method=method)
     
 
     
