@@ -1,9 +1,9 @@
 import json
 from typing import Generator, Tuple
 from collections import namedtuple
-from itertools import islice
+from itertools import islice, starmap
 
-from tests.r_0_1.wrapper import Descritor
+from wrapper import Descritor
 
 
 Data= namedtuple('Data', ('name', 'passwd', 'email'))
@@ -61,15 +61,14 @@ def xsteps(data: Tuple):
     send = yield  # Inicia após a chamada de next()
     
     if send in methods:  # Verificando contrato externo, chamada do método send(bool)
-        option = (option for option in Request(method=send, data=data))
-        class_repo = xlogic(args=option)
 
+        request: list = [(option for option in Request(method=send, data=data))]
+        xrepo = starmap(xlogic, [request])
+        
         send = yield #  Verificando novamento o send(bool)
         if 'SET' in send: # contrato externo
-            yield xrequest(class_=class_repo)
-
-
-
+            for repo in xrepo:
+                yield xrequest(class_=repo)
 
 
 def xlogic(args: Generator):
