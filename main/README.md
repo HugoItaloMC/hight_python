@@ -1,0 +1,1 @@
+Principal estrutura para aplicar em minhas aplicacões

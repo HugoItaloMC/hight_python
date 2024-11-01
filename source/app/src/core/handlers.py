@@ -2,7 +2,7 @@ from pathlib import Path
 from typing import Generator, Optional
 from multiprocessing import RLock
 from queue import Queue
-from functools import wraps
+from functools import wrap
 
 import sqlalchemy as sa
 from sqlalchemy.future.engine import Engine
