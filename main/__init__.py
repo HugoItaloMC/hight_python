@@ -26,5 +26,6 @@ if __name__ == '__main__':
             print("OPERACÃO CONCLUÍDA\n")
         else:
             print("Error %s" % stats)
+            break
 
     
