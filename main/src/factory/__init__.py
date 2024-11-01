@@ -1,6 +1,6 @@
-from factory.nn import ConcretNN
-from factory.xx import ConcretXX
-from factory.yy import ConcretYY
+from src.factory.nn import ConcretNN
+from src.factory.xx import ConcretXX
+from src.factory.yy import ConcretYY
 __all__ = ['FactoryXX', 'FactoryYY', 'FactoryNN']
 
 

@@ -1,4 +1,4 @@
-from factory.core import AbstractPro as Handler
+from src.factory.core import AbstractPro as Handler
 
 class ConcretXX(Handler):
 

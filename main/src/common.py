@@ -1,26 +1,26 @@
 from collections import namedtuple
 from queue import Queue   
 
-from factory import(FactoryNN, FactoryXX, ConcretYY)
+from src.factory import(FactoryNN, FactoryXX, FactoryYY)
 __all__ = ['Common']
 
 class Common:
-    # Abstract Factory
     # Acesso a `Factorys, fabricas `
-    # Neste Objeto vc escolhe através de condicões qual Produto conreto utilizar
+    # Neste Objeto vc escolhe através de condicões qual factory utilizar
     def __init__(self, op: str, data: set):
         self.__op = op
         self.__data = data
         self._queue = Queue()
     
     def __iter__(self):
+        # Estruturando requisicão
         Request = namedtuple('Request', ("op", "data"))
         
         send = yield
         if 'INIT' in send.upper():
             grequest = (x for x in Request(op=self.__op, data=self.__data))
             yield self.__logic(grequest)
-        yield from self
+        yield from self.__dict__
 
     
     def __logic(self, generator):
@@ -38,7 +38,7 @@ class Common:
             exit(0)
             
         generator.close()
-        return self._queue.get()
+        yield self._queue
     
 
 if __name__ == '__main__':

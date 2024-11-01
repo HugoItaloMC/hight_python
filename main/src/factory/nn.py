@@ -1,4 +1,4 @@
-from factory.core import AbstractPro as Handler
+from src.factory.core import AbstractPro as Handler
 
 # Produtos Abstratos
 # Produtos abstratos a qual vai conter regras a serem aplicadas, ou seja, ordens de servicos
