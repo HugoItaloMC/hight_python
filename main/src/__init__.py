@@ -1,4 +1,5 @@
 from src.common import Common
+__all__ = ['Facade']
 
 class Facade:
     # chama Common passando qual factory utilizar

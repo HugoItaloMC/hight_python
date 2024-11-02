@@ -13,7 +13,12 @@ class NameSpace:
         if send:
             namespaces = self.parser.parse_args()  # namespaces
             if namespaces.start:
-                subprocess.run('python3 $HOME/Documentos/learnings/smooth/high_python/main/__init__.py', shell=True)
+                try:
+                    subprocess.run('python3 $HOME/Documentos/learnings/smooth/high_python/main/template.py', shell=True)
+                    exit(1)
+                except Exception as err:
+                    print(err)
+                    exit(0)
             
 
 if __name__ == '__main__':

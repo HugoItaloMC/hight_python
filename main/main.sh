@@ -27,6 +27,12 @@ install_python() {
 }
 
 echo "Executando script em: $(pwd)"
+
+
+# Ativa o ambiente virtual
+source "$HOME/Documentos/learnings/smooth/high_python/main/.venv/bin/activate"
+
+
 # Tenta executar o script Python e verifica se há erro
 if ! python3 $HOME/Documentos/learnings/smooth/high_python/main/run.py --start; then
     echo "Erro ao executar python3 main/run.py --start. Verificando instalação do Python..."
