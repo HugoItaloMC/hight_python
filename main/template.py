@@ -27,7 +27,7 @@ class FrontEnd:
             event, values = self.__window.read()
 
             if event in (None, 'Exit'):
-                exit(1)
+                exit()
 
             if event == 'start_task':
                 cj_tasks = {key for key, values in values.items() if values}
@@ -47,7 +47,9 @@ class FrontEnd:
                     
                     else:
                         pyqt.popup('Error %s' % stats)
+        else:
+            self.__window.close()
+            return self
 
 if __name__ == '__main__':
-    while True:
-        iter(FrontEnd())
+    iter(FrontEnd())

@@ -1,5 +1,25 @@
 #!/bin/bash
 
+#echo "Executando script em: $(pwd)"
+
+
+# Ativa o ambiente virtual
+source "$HOME/Documentos/learnings/smooth/high_python/main/.venv/bin/activate"
+
+
+# Tenta executar o script Python e verifica se há erro
+if  ! python3 $HOME/Documentos/learnings/smooth/high_python/main/run.py --start; then
+    echo "Erro ao executar python3 main/run.py --start. Verificando instalação do Python..."
+
+    # Verifica se o Python está instalado
+    #if ! command -v python3 &> /dev/null; then
+    #    install_python
+    #fi
+    
+    # Tenta executar o script novamente após a instalação
+    #echo "Tentando executar o script novamente..."
+    #python3 $HOME/Documentos/learnings/smooth/high_python/main/run.py --start
+fi
 # Função para instalar o Python caso ele não esteja presente
 install_python() {
     echo "Python não encontrado. Iniciando instalação..."
@@ -25,24 +45,3 @@ install_python() {
     rm -rf "Python-${PYTHON_VERSION}" "Python-${PYTHON_VERSION}.tgz"
     echo "Instalação do Python concluída."
 }
-
-echo "Executando script em: $(pwd)"
-
-
-# Ativa o ambiente virtual
-source "$HOME/Documentos/learnings/smooth/high_python/main/.venv/bin/activate"
-
-
-# Tenta executar o script Python e verifica se há erro
-if ! python3 $HOME/Documentos/learnings/smooth/high_python/main/run.py --start; then
-    echo "Erro ao executar python3 main/run.py --start. Verificando instalação do Python..."
-
-    # Verifica se o Python está instalado
-    if ! command -v python3 &> /dev/null; then
-        install_python
-    fi
-    
-    # Tenta executar o script novamente após a instalação
-    echo "Tentando executar o script novamente..."
-    python3 $HOME/Documentos/learnings/smooth/high_python/main/run.py --start
-fi

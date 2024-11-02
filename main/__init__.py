@@ -17,15 +17,20 @@ class Schema:
             exit(0)
 
 if __name__ == '__main__':
+    ALLOWED = ('N', 'X', 'Y')
     while (op := input("ESCOLHA OPERACÃO\n\n\nOPERACÕES(Y, N, X)\ndigite `exit` para sair\n: ")) != 'exit':
-        schema = iter(Schema(op, set(range(1, 101))))
-        next(schema)
-        exits, stats = schema.send('START')
-
-        if exits:
-            print("OPERACÃO CONCLUÍDA\n")
+        if op not in ALLOWED:
+            print("OPERACÃO INVÁLIDA")
+            pass
         else:
-            print("Error %s" % stats)
-            break
+            schema = iter(Schema(op, set(range(1, 101))))
+            next(schema)
+            exits, stats = schema.send('START')
+
+            if exits:
+                print("OPERACÃO CONCLUÍDA\n")
+            else:
+                print("Error %s" % stats)
+                break
 
     

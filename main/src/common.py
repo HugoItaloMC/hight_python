@@ -34,8 +34,7 @@ class Common:
             self._queue.put(FactoryXX(next(generator)))
         else:
             generator.close()
-            print("operation error")
-            exit(0)
+            exit()
             
         generator.close()
         yield self._queue
