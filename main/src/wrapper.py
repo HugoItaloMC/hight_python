@@ -1,37 +1,39 @@
 from collections import namedtuple
 from queue import Queue   
 
-from src.factory import(FactoryNN, FactoryXX, FactoryYY)
+from src.factory import Factory
 __all__ = ['Common']
 
-class Common:
+class Wrapper:
     # Acesso a `Factorys, fabricas `
-    # Neste Objeto vc escolhe através de condicões qual factory utilizar
-    def __init__(self, op: str, data: set):
-        self.__op = op
-        self.__data = data
+    # Neste Objeto vc escolhe através de atributos como utilizar a factory
+    def __init__(self, op: str, data: set, *args: tuple):
+        self.__op = op  # Operacão contida nas tarefas enviadas do FrontEnd
+        self.__data = data  # Dados
+        self.__args = args  # Envia funcões auxiliares para Factory
         self._queue = Queue()
-    
+
+ 
     def __iter__(self):
         # Estruturando requisicão
         Request = namedtuple('Request', ("op", "data"))
         
         send = yield
         if 'INIT' in send.upper():
-            grequest = (x for x in Request(op=self.__op, data=self.__data))
-            yield self.__logic(grequest)
+            yield self.__logic((x for x in Request(op=self.__op, data=self.__data)))
         yield from self.__dict__
 
     
     def __logic(self, generator):
-        OPERATIONS = ('N', 'Y', 'X')
+        OPERATIONS = ('N')
         op = next(generator)
-        if 'N' in op:
-            self._queue.put(FactoryNN(next(generator)))
-        elif 'Y' in op:
-            self._queue.put(FactoryYY(next(generator)))
-        elif 'X' in op:
-            self._queue.put(FactoryXX(next(generator)))
+
+        if self.__args and op:
+            self._queue.put(Factory(next(generator), self.__args[0]))
+
+        elif op in OPERATIONS:
+            self._queue.put(Factory(next(generator)))
+
         else:
             generator.close()
             exit()

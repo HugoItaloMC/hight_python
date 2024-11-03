@@ -1,7 +1,7 @@
 # Pythoon defaults imports
 from abc import abstractmethod
 
-__all__ = ['SuperClass']  # CONTROLANDO IMPORTACÃO DO MÓDULO
+__all__ = ['AbstractAlfa']  # CONTROLANDO IMPORTACÃO DO MÓDULO
 
 class Descriptor:
     # Descriptor object from `SuperClass`
@@ -21,8 +21,8 @@ class Descriptor:
 class Meta(type):
     # Metaclasse, controlando atributos
     def __new__(meta, name, bases, attrs):
-        if 'run' in attrs and attrs['run'] is ...:
-            attrs['run'] = Descriptor()  # Fazendo refrência através do protocolo descritor
+        if 'flush' in attrs and attrs['flush'] is ...:
+            attrs['flush'] = Descriptor()  # Fazendo refrência através do protocolo descritor
         return type.__new__(meta, name, bases, attrs)
     
     def __call__(cls, *arg, **kw):
@@ -32,7 +32,7 @@ class Meta(type):
         return cls.__instance
 
 
-class AbstractPro(metaclass=Meta):
+class AbstractAlfa(metaclass=Meta):
     # Superclasse contento atributos e métodos em comun entre as subclasses
 
     def __init__(self):

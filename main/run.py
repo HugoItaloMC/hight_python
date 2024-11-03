@@ -15,6 +15,7 @@ class NameSpace:
             if namespaces.start:
                 subprocess.run('python3 $HOME/Documentos/learnings/smooth/high_python/main/template.py', shell=True)
             exit()
+
 if __name__ == '__main__':
     namespaces = iter(NameSpace())
     next(namespaces)

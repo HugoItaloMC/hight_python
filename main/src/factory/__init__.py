@@ -1,35 +1,39 @@
-from src.factory.nn import ConcretNN
-from src.factory.xx import ConcretXX
-from src.factory.yy import ConcretYY
-__all__ = ['FactoryXX', 'FactoryYY', 'FactoryNN']
+from src.factory.concret import Concret
+__all__ = ['Factory', 'FactoryYY', 'FactoryNN']
 
 
-# Factorys 
-# Faz uma refrência a produtos concretos
+# Factorys, herda de classes Concretas
 
-
-class FactoryNN(ConcretNN): 
-    run: 'Handler' = ...
+class Factory(Concret): 
+    flush: 'Handler' = ...  # Modifica atributos de saída e estado de toda instância
     def __init__(self, arg, *args, **kw):
-        super().__init__(arg)
-        self.__args = args
+        # `arg` dados enviados para serem trabalhados em Concret
+        #       Qualquer alteracão em `arg` deve ser feita em objetos/funcões auxiliares em concret
+        
+        # `args` solicitacões de funcões/objetos auxiliares para `Concret`
+        super().__init__(arg, *args)
+
+        # `kw` atributos nível de Factory, 
         self.__kw = kw
     
+    # Atributos dinâmicos
     def __getattr__(self, attr):
         valur = attr
         setattr(valur, self, attr)
         return valur
 
-    def impar(self):
-        self._ConcretNN__arg = {x for x in self._ConcretNN__arg if x % 2 != 0}
+
+
+class FactoryXX(Factory):
+    def __init__(self):
+        super().__init__()
 
 
 
-class FactoryXX(ConcretXX): 
-    run: 'Handler' = ...
+class FactoryYY(Factory):
+    def __init__(self):
+        super().__init__()
 
-class FactoryYY(ConcretYY): 
-    run: 'Handler' = ...
 
 if __name__ == '__main__':
     nn = ConcretN(set(range(1, 101)))

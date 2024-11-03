@@ -1,0 +1,6 @@
+pyasn1==0.6.1
+PySide2==5.13.2
+PySimpleGUI==5.0.7
+PySimpleGUIQt==5.0.0
+rsa==4.9
+shiboken2==5.13.2

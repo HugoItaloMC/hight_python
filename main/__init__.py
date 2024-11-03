@@ -7,14 +7,26 @@ class Schema:
     
     def __iter__(self):
         send = yield
+        global facade
+        facade = None
         if 'START' in send.upper():
-            start = iter(Facade(self.__args[1]))  # Enviando dados para Facade
-            next(start)  # Iniciando a corroutina da Facade
-            start.send(self.__args[0])  # Enviando operacão, chamando factory imputida na facade
-            yield start.send('SET')  # Executando tarefa incluída na factory a qual foi chamada
+
+            # Verificando se template solicitou funcões/objetos auxiliares e enviando
+            if len(self.__args) > 2:
+                facade = iter(Facade(self.__args[0], self.__args[1], self.__args[2]))
+            
+            # Enviando tarefas recebidas de template sem funcões/objetos auxiliares
+            if facade is None:
+                facade = iter(Facade(self.__args[0], self.__args[1]))
+            
+            # Iniciando corroutina de Facade
+            next(facade)  
+            # Executando tarefa incluída na factory a qual foi chamada, verificando status e saída
+            yield facade.send('SET')  
         else:
             send.close()
             exit(0)
+        facade.close()
 
 if __name__ == '__main__':
     ALLOWED = ('N', 'X', 'Y')
