@@ -1,9 +1,9 @@
-class Utils:
+class PairNumber:
 
-    def __init__(self, *args: tuple):
+    def __init__(self, arg: set):
         super().__init__()
-        self.__args = args
+        self.__arg = arg
     
     def __call__(self):
-        for line in self.__args:
-            print(line)
+        self.__arg = {x for x in self.__arg if x % 2 == 0}
+        return self.__arg

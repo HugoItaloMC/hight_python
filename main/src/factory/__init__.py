@@ -1,10 +1,9 @@
-from src.factory.concret import Concret
-__all__ = ['Factory', 'FactoryYY', 'FactoryNN']
+from src.factory.abs import Abstract
+__all__ = ['Factory']
 
 
-# Factorys, herda de classes Concretas
-
-class Factory(Concret): 
+class Concret(Abstract):
+    # Classe AbstractFactory, aqui controlamos atributos de baixo nível
     flush: 'Handler' = ...  # Modifica atributos de saída e estado de toda instância
     def __init__(self, arg, *args, **kw):
         # `arg` dados enviados para serem trabalhados em Concret
@@ -23,16 +22,16 @@ class Factory(Concret):
         return valur
 
 
+# Factory, herda de classes Concretas
+class Factory(Concret):
+    # Concret Factory
+    # Aqui podemos controla atributos ou métodos de alto nível
 
-class FactoryXX(Factory):
-    def __init__(self):
-        super().__init__()
-
-
-
-class FactoryYY(Factory):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, arg, *args, **kw):
+        super().__init__(arg, *args, **kw)
+    
+    def __getattr__(self, attr):
+        return super().__getattr__(attr)
 
 
 if __name__ == '__main__':

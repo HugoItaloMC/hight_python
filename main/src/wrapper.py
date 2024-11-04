@@ -2,7 +2,7 @@ from collections import namedtuple
 from queue import Queue   
 
 from src.factory import Factory
-__all__ = ['Common']
+__all__ = ['Wrapper']
 
 class Wrapper:
     # Acesso a `Factorys, fabricas `
@@ -22,7 +22,6 @@ class Wrapper:
         if 'INIT' in send.upper():
             yield self.__logic((x for x in Request(op=self.__op, data=self.__data)))
         yield from self.__dict__
-
     
     def __logic(self, generator):
         OPERATIONS = ('N')

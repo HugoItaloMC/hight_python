@@ -20,7 +20,7 @@ class FrontEnd:
         
         [pyqt.Text("UTILS", justification='center', font=("Goto", 15))],
         
-        [pyqt.Radio('utils', 'RADIO1', default=False, font=("Sans-serif", 15), key='utils'), pyqt.Stretch()],
+        [pyqt.Radio('somente par', 'RADIO1', default=False, font=("Sans-serif", 11), key='par'), pyqt.Stretch()],
 
         [pyqt.Button('Executar Tarefa', key='start_task')],
         [pyqt.Exit()]
@@ -46,9 +46,9 @@ class FrontEnd:
 
 
                 # Enviando tarefas com  funcões/objetos auxiliares
-                if 'utils' in cj_tasks:
-                    cj_tasks.discard('utils')
-                    schema = iter(Schema(cj_tasks.pop(), data_range, 'utils'))
+                if 'par' in cj_tasks:
+                    cj_tasks.discard('par')
+                    schema = iter(Schema(cj_tasks.pop(), data_range, 'par'))
                 
                 # Enviando tarefas 
                 if schema is None:
@@ -56,13 +56,14 @@ class FrontEnd:
 
                 # Iniciando corroutina de Schema
                 next(schema)    
-                exits, stats = schema.send('START')
-                if exits == 1:
+                factory = schema.send('START')
+                if ~factory:
+                    +factory
                     pyqt.popup('OPERACÃO CONCLUÍDA COM SUCESSO')
-                    schema.close()
+
                 else:
-                    pyqt.popup('Error %s' % stats)
-                    schema.close()
+                    pyqt.popup('Error %s' % factory.__dict__)
+
                 
                 schema.close()
 

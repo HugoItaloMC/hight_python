@@ -1,16 +1,8 @@
-from src.factory.core import AbstractAlfa as Handler
-from src.factory.tools.utils import Utils
+from src.factory.core import Handler
+from src.factory.tools.utils import PairNumber
 
-"""
-    - Classe concreta, nesta classe temos
-    que tem uma tarefa principal, e chama
-    outras instâncias de sub-classes de 
-    `Handler` para poder manipular `arg` 
-    diretamente.
 
-"""
-
-class Concret(Handler):
+class Abstract(Handler):
 
     def __init__(self, arg: set = {}, *args: tuple):
         super().__init__()
@@ -24,9 +16,9 @@ class Concret(Handler):
             while self._exit > 0:
                 -self
             
-            if 'utils' in self.__args:
-                self.__args.pop()
-                Utils('data')()
+            if 'par' in self.__args:
+                self.__args.discard('par')
+                self.__arg = PairNumber(self.__arg)()
 
             xdata = self.__arg.pop()
             print(xdata)

@@ -37,8 +37,8 @@ class Facade:
             factory = queue.get()  # buscando Factory contida na `Queue`
             #factory.attr = 'test'  # Adiministrando novos atributos para a factory
             #factory.impar()  # Tarefa de alto nível, ñ altera o estado e saída da classe concreta da Factory
-            #print(factory.__dict__)
             yield factory.flush()  # Enviando o estado e saída da Factory através de corroutina
+
         wrapper.close()
         yield from self
 

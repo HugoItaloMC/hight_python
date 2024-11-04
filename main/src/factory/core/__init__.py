@@ -1,10 +1,11 @@
 # Pythoon defaults imports
 from abc import abstractmethod
 
-__all__ = ['AbstractAlfa']  # CONTROLANDO IMPORTACÃO DO MÓDULO
+__all__ = ['Handler']  # CONTROLANDO IMPORTACÃO DO MÓDULO
 
 class Descriptor:
-    # Descriptor object from `SuperClass`
+    #  Descriptor de atributos da classe Handler
+    # controla seu comportamento
 
     def __set_name__(self, owner, name):
         self.name = name
@@ -15,12 +16,15 @@ class Descriptor:
     def __get__(self, instance, owner):
         if instance is None:
             return self
+
         return lambda: next(instance())
 
 
 class Meta(type):
     # Metaclasse, controlando atributos
     def __new__(meta, name, bases, attrs):
+
+        # Controlando alteracão de estado e saída através de metaclasses
         if 'flush' in attrs and attrs['flush'] is ...:
             attrs['flush'] = Descriptor()  # Fazendo refrência através do protocolo descritor
         return type.__new__(meta, name, bases, attrs)
@@ -32,8 +36,8 @@ class Meta(type):
         return cls.__instance
 
 
-class AbstractAlfa(metaclass=Meta):
-    # Superclasse contento atributos e métodos em comun entre as subclasses
+class Handler(metaclass=Meta):
+    # Handler, controla estado e saída
 
     def __init__(self):
         self._exit  = 0  # Controlador de saída
@@ -57,14 +61,16 @@ class AbstractAlfa(metaclass=Meta):
     ######################################################################
 
     def __call__(self):
+        # chama next() de classes filhas, que vai conter seus comportamentos especifícos
         while True:
             try:
                 next(self)
             except StopIteration:
-                +self  # SAÍDA 1  para conclusão bem sucedida
-                ~self  # MUDANDO O ESTADO DO OBJETO BIT A BIT, ESSA MUDANCA TB PODE OCORRER EM CONTRATOS EXTERNOS
-                yield (self._exit, self._state,)
+                #+self  # SAÍDA 1  para conclusão bem sucedida
+                #~self  # MUDANDO O ESTADO DO OBJETO BIT A BIT, ESSA MUDANCA TB PODE OCORRER EM CONTRATOS EXTERNOS
+                yield self
+    
     @abstractmethod             
-    def __next__(self):
-        raise NotImplementedError("MÉTODO NÃO IMPLEMENTADO")
+    def __next__(self, *args, **kw):
+        raise NotImplemented("MÉTODO NÃO IMPLEMENTADO")
 
